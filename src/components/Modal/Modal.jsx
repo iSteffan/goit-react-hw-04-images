@@ -6,12 +6,6 @@ import { Overlay, ModalWindow } from './Modal.styled';
 const modalRoot = document.querySelector('#modal-root');
 
 export const Modal = ({ img, alt, onClose }) => {
-  const closeModalByEsc = e => {
-    if (e.code === 'Escape') {
-      onClose();
-    }
-  };
-
   const handleBackdropClick = e => {
     if (e.currentTarget === e.target) {
       onClose();
@@ -19,12 +13,18 @@ export const Modal = ({ img, alt, onClose }) => {
   };
 
   useEffect(() => {
+    const closeModalByEsc = e => {
+      if (e.code === 'Escape') {
+        onClose();
+      }
+    };
+
     window.addEventListener('keydown', closeModalByEsc);
 
     return () => {
       window.removeEventListener('keydown', closeModalByEsc);
     };
-  }, []);
+  }, [onClose]);
 
   return createPortal(
     <Overlay onClick={handleBackdropClick}>
