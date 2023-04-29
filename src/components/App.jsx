@@ -29,10 +29,46 @@ export const App = () => {
     setPage(prevPage => prevPage + 1);
   };
 
+  // const setImagesByResponse = (keyword, page) => {
+  //   getImages(keyword, page)
+  //     .then(resp => resp.json())
+  //     .then(response => {
+  //       // console.log(response);
+  //       // якщо нічого не знайдено - скидаємо всі прапорці та масив зображень
+  //       if (response.total === 0) {
+  //         if (response.total === 0) {
+  //           setImages([]);
+  //           setLoading(false);
+  //           setFindByKeyword(false);
+  //         }
+  //       }
+  //       // Якщо отриманий масив не порожній то перезаписуємо масив зображень/вимикаємо спінер/
+  //       // встановлюєм прапорець findByKeyword/ записуємо заг кількість результатів
+  //       else {
+  //         setImages(prevImages => [...prevImages, ...response.hits]);
+  //         setLoading(false);
+  //         setFindByKeyword(true);
+  //         setTotal(response.total);
+  //       }
+  //     })
+  //     .catch(error => console.error(error));
+  // };
+
   useEffect(() => {
     if (!keyword) {
       return;
     }
+
+    setImages([]);
+    setLoading(true);
+  }, [keyword]);
+
+  useEffect(() => {
+    if (!keyword) {
+      return;
+    }
+
+    setLoading(true);
 
     getImages(keyword, page)
       .then(resp => resp.json())
